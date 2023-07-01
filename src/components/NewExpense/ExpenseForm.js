@@ -6,15 +6,6 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmonut, setEnteredAmonut] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-  const [isAddingExpense, setIsAddingExpense] = useState(false);
-
-  function wantAddExpense() {
-    setIsAddingExpense(true);
-  }
-
-  function isCanceling() {
-    setIsAddingExpense(false);
-  }
 
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
@@ -38,13 +29,12 @@ const ExpenseForm = (props) => {
 
     props.onSaveExpenseData(expenseData);
     // Clearing the form after submiting and closing it
-    setIsAddingExpense(false);
     setEnteredTitle("");
     setEnteredAmonut("");
     setEnteredDate("");
   };
 
-  return isAddingExpense ? (
+  return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -77,14 +67,12 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button onClick={isCanceling}>Cancel</button>
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
-  ) : (
-    <div className="new-expense__actionsAdd">
-      <button onClick={wantAddExpense}>Add New Expense</button>
-    </div>
   );
 };
 
